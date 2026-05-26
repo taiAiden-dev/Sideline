@@ -1,0 +1,42 @@
+body {
+    /* background-color: bisque; */
+    background-color: tan;
+    /* display: flex; */
+    box-sizing: border-box;
+}
+
+.NET {
+    display: flex;
+    gap: 25px;
+    padding: 50px;
+}
+
+#pla {
+    flex: 1;
+    display: flex;
+    overflow: visible;
+}
+
+.LINE {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+}
+#headered {
+    padding: 12px 16px;
+    border-bottom: 1px solid;
+}
+
+#MandM {
+    width: 240px;
+    /* padding: 12px; */
+    border-right: 1px solid;
+    overflow-y: auto;
+    background-color: rgb(190, 157, 114);
+}
+
+#complete {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}

@@ -1,0 +1,45 @@
+{
+  "totalPlayers": {
+    "OutsideHitter": [
+      "James",
+      "Erick"
+    ],
+    "OppositeHitter": [
+      "Bruno",
+      "Mika"
+    ],
+    "MiddleBlocker": [
+      "Pena",
+      "Nick"
+    ],
+    "Setter": [
+      "Zach"
+    ],
+    "Libero": [
+      "Tai",
+      "Seb"
+    ]
+  },
+  "lastSetup": [
+    "Zach",
+    "James",
+    "Pena",
+    "Bruno",
+    "Erick",
+    "Tai",
+    "Nick"
+  ],
+  "playerStats": {
+    "Zach": {},
+    "James": {},
+    "Pena": {},
+    "Bruno": {
+      "Blocks": 1
+    },
+    "Erick": {},
+    "Tai": {
+      "Digs": 1
+    }
+  },
+  "gameRec": {}
+}
