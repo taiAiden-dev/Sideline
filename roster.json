@@ -1,23 +1,58 @@
 {
   "totalPlayers": {
     "OutsideHitter": [
-      "James",
-      "Erick"
+      {
+        "player": "James",
+        "jerseyNumber": 2
+      },
+      {
+        "player": "Erick",
+        "jerseyNumber": 21
+      }
     ],
     "OppositeHitter": [
-      "Bruno",
-      "Mika"
+      {
+        "player": "Bruno",
+        "jerseyNumber": 26
+      },
+      {
+        "player": "Mika",
+        "jerseyNumber": 10
+      },
+      {
+        "player": "Dillon",
+        "jerseyNumber": 3
+      }
     ],
     "MiddleBlocker": [
-      "Pena",
-      "Nick"
+      {
+        "player": "Pena",
+        "jerseyNumber": 32
+      },
+      {
+        "player": "Nick",
+        "jerseyNumber": 12
+      },
+      {
+        "player": "Marshall",
+        "jerseyNumber": 11
+      }
     ],
     "Setter": [
-      "Zach"
+      {
+        "player": "Zach",
+        "jerseyNumber": 1
+      }
     ],
     "Libero": [
-      "Tai",
-      "Seb"
+      {
+        "player": "Tai",
+        "jerseyNumber": 4
+      },
+      {
+        "player": "Seb",
+        "jerseyNumber": 0
+      }
     ]
   },
   "lastSetup": [
@@ -30,16 +65,197 @@
     "Nick"
   ],
   "playerStats": {
-    "Zach": {},
-    "James": {},
-    "Pena": {},
-    "Bruno": {
-      "Blocks": 1
+    "Zach": {
+      "Aces": 2,
+      "Kills": 2,
+      "Assists": 11,
+      "Digs": 1,
+      "ServicePoints": 7
     },
-    "Erick": {},
+    "James": {
+      "Kills": 13,
+      "Blocks": 2,
+      "Digs": 1,
+      "Aces": 3
+    },
+    "Pena": {
+      "Kills": 3,
+      "Blocks": 6
+    },
+    "Bruno": {
+      "Blocks": 1,
+      "Assists": 1
+    },
+    "Erick": {
+      "Digs": 2,
+      "Kills": 2
+    },
     "Tai": {
-      "Digs": 1
+      "Digs": 6,
+      "Assists": 4,
+      "Aces": 1,
+      "ServeErr": 1
+    },
+    "Nick": {
+      "Kills": 1
     }
   },
-  "gameRec": {}
+  "scorebook": [
+    {
+      "gameDay": "5/29/2026, 8:28:59 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:30:17 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:36:20 PM",
+      "gameRec": [
+        "James-K",
+        "PL",
+        "James-K",
+        "James-Ace",
+        "James-Ace",
+        "James-Ace",
+        "PL",
+        "PL",
+        "PL",
+        "PG",
+        "Tai-ServeErr",
+        "Nick-K"
+      ],
+      "score": [
+        7,
+        5
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:41:45 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:42:23 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:43:00 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:52:34 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:53:39 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:54:07 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:54:53 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 8:57:39 PM",
+      "gameRec": [
+        "James-K"
+      ],
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 9:06:05 PM",
+      "gameRec": [
+        "James-K",
+        "James-K",
+        "PL"
+      ],
+      "score": [
+        2,
+        1
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 9:12:13 PM",
+      "gameRec": [],
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 9:16:56 PM",
+      "gameRec": [
+        "James-K",
+        "PL"
+      ],
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 9:19:12 PM",
+      "gameRec": [
+        "James-K",
+        "PL",
+        "James-K"
+      ],
+      "score": [
+        2,
+        1
+      ]
+    },
+    {
+      "gameDay": "5/29/2026, 9:20:40 PM",
+      "gameRec": [
+        "James-K"
+      ],
+      "score": [
+        1,
+        0
+      ]
+    }
+  ]
 }

@@ -3,13 +3,34 @@ let finalLineUp
 let midSwitch
 
 let playalist
+let gametime = []
+let serve = true
+
+let date = new Date().toLocaleString()
+
+function redo(serve){
+    if (serve){
+        serve = true
+        document.getElementById("turnes").innerText = "Serve"
+        rotate(lineUp)
+    } else {
+        serve = false
+        document.getElementById("turnes").innerText = "Recieve"
+    }
+}
 
 function foSho(lineUp){
-    lineUp.forEach(look => {
+    console.log("b")
+    lineUp.forEach((look, index) => {
+        if (index == 6) return
+        console.log(look)
+        const name = document.createElement("p")
+        name.innerText = look
         let tok = String(look)
-        let pos = lineUp.indexOf(look) + 1
+        let pos = index + 1
+        document.getElementById(pos).innerText = ""
         console.log(document.getElementById(String(pos)))
-        document.getElementById(String(pos)).innerText = look
+        document.getElementById(String(pos)).appendChild(name)
         playalist.playerStats[look] ??= {}
         let rowed = document.createElement("div")
         document.getElementById(String(pos)).appendChild(rowed)
@@ -26,6 +47,12 @@ function foSho(lineUp){
             playalist.playerStats[tok] ??= {}
             playalist.playerStats[tok].Kills ??= 0
             playalist.playerStats[tok].Kills += 1
+            gametime.push(`${look}-K`)
+            playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+            playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
+            console.log(playalist.scorebook.at(-1).score)
+            document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+            redo(true)
             window.seam.UpdateStats(playalist)
         }
 
@@ -33,6 +60,8 @@ function foSho(lineUp){
             playalist.playerStats[tok] ??= {}
             playalist.playerStats[tok].Assists ??= 0
             playalist.playerStats[tok].Assists += 1
+            gametime.push(`${look}-As`)
+            playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
             window.seam.UpdateStats(playalist)
         }
 
@@ -40,8 +69,11 @@ function foSho(lineUp){
             playalist.playerStats[tok] ??= {}
             playalist.playerStats[tok].Digs ??= 0
             playalist.playerStats[tok].Digs += 1
+            gametime.push(`${look}-D`)
+            playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
             window.seam.UpdateStats(playalist)
         }
+
         if (pos >= 2 && pos < 5){
             const blockB = document.createElement("button")
             blockB.innerText = "Block"
@@ -50,35 +82,59 @@ function foSho(lineUp){
                 playalist.playerStats[tok] ??= {}
                 playalist.playerStats[tok].Blocks ??= 0
                 playalist.playerStats[tok].Blocks += 1
+                gametime.push(`${look}-B`)
+                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                 window.seam.UpdateStats(playalist)
             }
             rowed.appendChild(blockB)
         } else if(lineUp.indexOf(look) == 0) {
             const aceB = document.createElement("button")
             aceB.innerText = "Ace"
-            const serviceErrB = document.createElement("button")
-            serviceErrB.innerText = "Service Error"
+            const servicePointB = document.createElement("button")
+            servicePointB.innerText = "Service Point"
 
             aceB.onclick = () => {
                 playalist.playerStats[tok] ??= {}
                 playalist.playerStats[tok].Aces ??= 0
                 playalist.playerStats[tok].Aces += 1
+                gametime.push(`${look}-Ace`)
+                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
+                document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+                redo(true)
                 window.seam.UpdateStats(playalist)
             }
 
-            serviceErrB.onclick = () => {
+            servicePointB.onclick = () => {
                 playalist.playerStats[tok] ??= {}
-                playalist.playerStats[tok].ServeErr ??= 0
-                playalist.playerStats[tok].ServeErr += 1
+                playalist.playerStats[tok].ServicePoints ??= 0
+                playalist.playerStats[tok].ServicePoints += 1
+                gametime.push(`${look}-SP`)
+                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                 window.seam.UpdateStats(playalist)
             }
             rowed.appendChild(aceB)
-            rowed.appendChild(serviceErrB)
+            rowed.appendChild(servicePointB)
         }
         rowed.appendChild(killB)
         rowed.appendChild(assistB)
         rowed.appendChild(digB)
     })
+}
+
+function rotate(lineUp){
+    let heldPlayer = lineUp.shift()
+    lineUp.push(heldPlayer)
+    console.log(lineUp[3])
+    let libs = playalist.totalPlayers.Libero
+    if (lineUp.findIndex(p => libs.some(lib => lib.player === p)) == 3){
+        let libTemp = lineUp[3]
+        lineUp[3] = midSwitch
+        midSwitch = lineUp[0]
+        lineUp[0] = libTemp
+    }
+    console.log(lineUp)
+    foSho(lineUp)
 }
 
 window.seam.onHandshake((data) => {
@@ -99,78 +155,89 @@ window.seam.onHandshake((data) => {
     }
 })
 document.addEventListener("DOMContentLoaded", async () => {
+    document.getElementById("turnes").innerText = "Serve"
 
-
+    const serviceErrB = document.getElementById("coachWilly")
     console.log("balls")
-    playalist = await window.seam.fetchRoster()
-    console.log(playalist)
-    if(playalist.lastSetup[6]){
-        midSwitch = playalist.lastSetup[6]
-        playalist.lastSetup.splice(-1, 1)
-        document.getElementById("vorets").innerText = playalist.lastSetup
-        foSho(playalist.lastSetup)
-    }
-
-
-// //let , , , , ,
-// let lib
-// if (playalist.Libero){
-//     lib = true
-// } else {
-//     lib = false
-// }
-
-// let posOne //= playalist.Setter[0]
-// let posTwo //= playalist.OutsideHitter[0]
-// let posThree //= playalist.MiddleBlocker[0]
-// let posFour //= playalist.OppositeHitter[0]
-// let posFive //= playalist.OutsideHitter[1]
-// let posSix //= playalist.MiddleBlocker[1]
-// // let lineUp = [] //= [posOne, posTwo, posThree, posFour, posFive, posSix]
-// // window.seam.refine(playalist.OutsideHitter, 2)
-//             // chonk = window.seam.refine(null, 1)
-
-
-function rotate(){
-    let heldPlayer = lineUp.shift()
-    lineUp.push(heldPlayer)
-    console.log(lineUp[3])
-    console.log(lineUp[3] == playalist.totalPlayers.Libero.filter(item => lineUp.includes(item)))
-    if (lineUp[3] == playalist.totalPlayers.Libero.filter(item => lineUp.includes(item))){
-        // let libTemp = lineUp.splice(3, 1)[0]
-        // lineUp.shift()
-        // lineUp.push(libTemp)
-        let libTemp = lineUp[3]
-        lineUp[3] = midSwitch
-        midSwitch = lineUp[0]
-        lineUp[0] = libTemp
-    }
-    console.log(lineUp)
-    lineUp.forEach(look => {
-        console.log(lineUp.indexOf(look) >= 2 && lineUp.indexOf(look) < 5)
-        if (lineUp.indexOf(look) >= 1 && lineUp.indexOf(look) < 4){
-            let pos = lineUp.indexOf(look) + 1
-            document.getElementById(String(pos)).innerText = look
-        } else {
-            console.log("wait", lineUp.indexOf(look))
-            let pos = lineUp.indexOf(look) + 1
-            document.getElementById(String(pos)).innerText = look
+    await window.seam.fetchRoster().then((data) => {
+        playalist = data
+        console.log(playalist)
+        if (playalist.lastSetup != undefined){
+            if(playalist.lastSetup[6]){
+                midSwitch = playalist.lastSetup[6]
+                let currentSetUp = [...playalist.lastSetup]
+                currentSetUp.splice(-1, 1)
+                console.log(currentSetUp)
+                document.getElementById("vorets").innerText = currentSetUp
+                lineUp = currentSetUp
+                foSho(currentSetUp)
+                console.log(document.getElementById("1").innerText)
+            } else {
+                playalist.totalPlayers.MiddleBlocker.forEach(player => {
+                    if (!playalist.lastSetup.includes(player.player)) {
+                        playalist.lastSetup.push(player.player)
+                        midSwitch = playalist.lastSetup[6]
+                        let currentSetUp = [...playalist.lastSetup]
+                        currentSetUp.splice(-1, 1)
+                        console.log(currentSetUp)
+                        document.getElementById("vorets").innerText = currentSetUp
+                        lineUp = currentSetUp
+                        foSho(currentSetUp)
+                        console.log(document.getElementById("1").innerText)
+                    }
+                })
+            }
         }
     })
-    foSho(lineUp)
-}
+
+    document.getElementById("rotateSignal").hidden = false
+    playalist.scorebook.push({
+        "gameDay": date,
+        "gameRec": [],
+        "score": [0, 0]
+    })
+    await window.seam.UpdateStats(playalist)
+    playalist.scorebook[playalist.scorebook.length - 1].gameRec ??= []
+    gametime = playalist.scorebook[playalist.scorebook.length - 1].gameRec
 
 
-    // window.seam.test()
     let balled = "no"
     document.getElementById("nored").onclick = () => {
-        // window.seam.refine(playalist.OutsideHitter, false)
         window.seam.blow()
         console.log(playalist.totalPlayers)
         window.seam.som(playalist.totalPlayers)
-        // setUpLineUp()
         document.getElementById("nored").hidden = true
     }
 
-    document.getElementById("rotateSignal").onclick = () => rotate()
+    serviceErrB.onclick = () => {
+        let server = document.getElementById("1").querySelector("p").innerText
+        redo(false)
+        playalist.playerStats[server] ??= {}
+        playalist.playerStats[server].ServeErr ??= 0
+        playalist.playerStats[server].ServeErr += 1
+        gametime.push(`${server}-ServeErr`)
+        playalist.scorebook[playalist.scorebook.length - 1].score[1] += 1
+        document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+        window.seam.UpdateStats(playalist)
+    }
+
+    document.getElementById("rotateSignal").onclick = () => rotate(lineUp)
+
+    document.getElementById("pointLost").onclick = () => {
+        gametime.push("PL")
+        redo(false)
+        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+        playalist.scorebook[playalist.scorebook.length - 1].score[1] += 1
+        document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+        window.seam.UpdateStats(playalist)
+    }
+
+    document.getElementById("pointGained").onclick = () => {
+        gametime.push("PG")
+        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+        playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
+        document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+        redo(true)
+        window.seam.UpdateStats(playalist)
+    }
 })

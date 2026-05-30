@@ -78,20 +78,20 @@ ipcMain.handle("StatUpdater", (event, rooster) => {
     fs.writeFileSync(storagePathed, JSON.stringify(rooster, null, 2))
 })
 
-ipcMain.on("balls", (event, data) => {
+ipcMain.on("try", (event, data) => {
     try {
         console.log(data)
         backupWin.webContents.once("did-finish-load", () => {
-            backupWin.webContents.send("balls", data)
+            backupWin.webContents.send("try", data)
         })
     } catch (err) {
         console.log(err)
     }
 })
 
-ipcMain.on("balls2", (event, data) => {
+ipcMain.on("try2", (event, data) => {
     let loaded = jerseys()
     loaded.lastSetup = data
     fs.writeFileSync(storagePathed, JSON.stringify(loaded, null, 2))
-    mainWin.webContents.send("balls", data)
+    mainWin.webContents.send("try", data)
 })

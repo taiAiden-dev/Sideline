@@ -1,6 +1,6 @@
 let temp
 let lineUp = []
-const cockcon = document.getElementById("sont")
+const confirmB = document.getElementById("sont")
 
 function sta(temp){
     document.getElementById("viewa").innerText = temp
@@ -8,7 +8,6 @@ function sta(temp){
 
 async function setUpLineUp(){
     count = 0
-    nort = 0
     let allTO = document.createElement("div")
     document.body.appendChild(allTO)
     console.log(allTO)
@@ -21,9 +20,9 @@ async function setUpLineUp(){
                 document.getElementById("clarity").innerText = "Choose your Outside Hitters:"
                 // document.getElementById("viewa").innerText = total.OutsideHitter
                 total.OutsideHitter.forEach(b => {
-                    if (lineUp.includes(b)) return
+                    if (lineUp.includes(b.player)) return
                     const lok = document.createElement("button")
-                    lok.innerText = b
+                    lok.innerText = b.player
 
                     lok.onclick = () => {
                         temp = lok.innerText
@@ -38,7 +37,7 @@ async function setUpLineUp(){
                 // document.getElementById("viewa").innerText = total.Libero
                 total.Libero.forEach(b => {
                     const lok = document.createElement("button")
-                    lok.innerText = b
+                    lok.innerText = b.player
 
                     lok.onclick = () => {
                         temp = lok.innerText
@@ -52,9 +51,9 @@ async function setUpLineUp(){
                 document.getElementById("clarity").innerText = "Choose your Setter:"
                 // document.getElementById("viewa").innerText = total.Setter
                 total.Setter.forEach(b => {
-                    console.log(b)
+                    console.log(b.player)
                     const lok = document.createElement("button")
-                    lok.innerText = b
+                    lok.innerText = b.player
 
                     lok.onclick = () => {
                         temp = lok.innerText
@@ -69,7 +68,7 @@ async function setUpLineUp(){
                 // document.getElementById("viewa").innerText = total.OppositeHitter
                 total.OppositeHitter.forEach(b => {
                     const lok = document.createElement("button")
-                    lok.innerText = b
+                    lok.innerText = b.player
 
                     lok.onclick = () => {
                         temp = lok.innerText
@@ -83,9 +82,9 @@ async function setUpLineUp(){
                 document.getElementById("clarity").innerText = "Choose your Middle Blockers:"
                 // document.getElementById("viewa").innerText = total.MiddleBlocker
                 total.MiddleBlocker.forEach(b => {
-                    if (lineUp.includes(b)) return
+                    if (lineUp.includes(b.player)) return
                     const lok = document.createElement("button")
-                    lok.innerText = b
+                    lok.innerText = b.player
 
                     lok.onclick = () => {
                         temp = lok.innerText
@@ -98,8 +97,8 @@ async function setUpLineUp(){
         }
 
         await new Promise((resolve) => {
-            cockcon.onclick = () => {
-                if (!temp) throw alert("no")
+            confirmB.onclick = () => {
+                if (!temp) throw alert("no (pick a player please)")
                 lineUp.push(temp)
                 temp = null
                 resolve()
@@ -123,11 +122,5 @@ window.seam.onHandshake((data) => {
 })
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // let pi = await window.seam.refine(null, 1)
-    // console.log(pi)
-
-
-
-
-  //     window.seam.refine(document.getElementById("tempChar").value, 2)
+    
 })
