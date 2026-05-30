@@ -7,7 +7,10 @@ let backupWin
 
 let temp
 
-const storagePathed = path.join(__dirname, "roster.json")
+const storagePathed = path.join(app.getPath("userData"), "roster.json")
+if (!fs.existsSync(storagePathed)){
+    fs.writeFileSync(storagePathed, JSON.stringify({}))
+}
 
 function jerseys(){
     const team = JSON.parse(fs.readFileSync(storagePathed, "utf-8"))
@@ -22,6 +25,8 @@ async function nono(){
         parent: mainWin,
         modal: true,
         webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false,
             preload: path.join(__dirname, "Pipe.js")
         }
     })
