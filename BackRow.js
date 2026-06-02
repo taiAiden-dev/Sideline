@@ -40,6 +40,8 @@ async function nono(){
         parent: mainWin,
         modal: true,
         webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false,
             preload: path.join(__dirname, "Pipe.js")
         }
     })
