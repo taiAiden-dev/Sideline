@@ -7,9 +7,24 @@ let backupWin
 
 let temp
 
-const storagePathed = path.join(app.getPath("userData"), "roster.json")
-if (!fs.existsSync(storagePathed)){
-    fs.writeFileSync(storagePathed, JSON.stringify({}))
+const packagedPathed = path.join(app.getPath("userData"), "roster.json")
+const storagePathed = path.join(__dirname, "roster.json")
+if (!fs.existsSync(packagedPathed)) {
+    if (fs.existsSync(storagePathed)) {
+        fs.copyFileSync(storagePathed, packagedPathed);
+    } else {
+        fs.writeFileSync(packagedPathed, JSON.stringify({
+            totalPlayers: {
+                OutsideHitter: [],
+                OppositeHitter: [],
+                MiddleBlocker: [],
+                Setter: [],
+                Libero: []
+            },
+            lastSetup: [],
+            scorebook: []
+        }));
+    }
 }
 
 function jerseys(){
@@ -25,8 +40,6 @@ async function nono(){
         parent: mainWin,
         modal: true,
         webPreferences: {
-            contextIsolation: true,
-            nodeIntegration: false,
             preload: path.join(__dirname, "Pipe.js")
         }
     })
@@ -39,6 +52,8 @@ function createWindow(){
         width: 900,
         height: 600,
         webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false,
             preload: path.join(__dirname, "Pipe.js")
         }
     })

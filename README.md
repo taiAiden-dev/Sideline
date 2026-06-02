@@ -14,6 +14,10 @@ Languages/Frameworks used:
 -Node.js
 -Electron
 
+What's new:
+-Score Records
+-Serve Tracking (Incomplete)
+
 What's available:
 -Starting line-up creation
 -Libero Substitution
@@ -22,8 +26,6 @@ What's available:
 
 What's missing:
 -Substitutions
--Score Records
--Serve Tracking
 -Libero Tracking (Recording, not Substituting)
 
 As such, this app is currently in development. Apologies for the questionable variable names, but the comments should guide you in cause you get lost.

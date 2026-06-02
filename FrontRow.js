@@ -5,17 +5,25 @@ let midSwitch
 let playalist
 let gametime = []
 let serve = true
+let servetruth = false
 
 let date = new Date().toLocaleString()
 
-function redo(serve){
-    if (serve){
+function redo(sword){
+    if (sword){
         serve = true
         document.getElementById("turnes").innerText = "Serve"
-        rotate(lineUp)
+        if (servetruth){
+            rotate(lineUp)
+            servetruth = false
+        }
     } else {
         serve = false
+        servetruth = true
         document.getElementById("turnes").innerText = "Recieve"
+        gametime.push(`${lineUp[0]} - Serve End`)
+        playalist.scorebook[playalist.scorebook.length - 1] = gametime
+        window.seam.UpdateStats(playalist)
     }
 }
 
@@ -134,6 +142,9 @@ function rotate(lineUp){
         lineUp[0] = libTemp
     }
     console.log(lineUp)
+    gametime.push(`${lineUp[0]} - Serve Start`)
+    playalist.scorebook[playalist.scorebook.length - 1] = gametime
+    window.seam.UpdateStats(playalist)
     foSho(lineUp)
 }
 
@@ -146,7 +157,7 @@ window.seam.onHandshake((data) => {
         lineUp = finalLineUp
         midSwitch = finalLineUp[6]
         lineUp.splice(-1, 1)
-        document.getElementById("vorets").innerText = finalLineUp
+        // document.getElementById("vorets").innerText = finalLineUp
         console.log(lineUp)
         console.log(midSwitch)
         foSho(lineUp)
@@ -162,13 +173,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     await window.seam.fetchRoster().then((data) => {
         playalist = data
         console.log(playalist)
+        playalist.scorebook.push({
+            "gameDay": date,
+            "gameRec": [],
+            "score": [0, 0]
+        })
         if (playalist.lastSetup != undefined){
             if(playalist.lastSetup[6]){
                 midSwitch = playalist.lastSetup[6]
                 let currentSetUp = [...playalist.lastSetup]
                 currentSetUp.splice(-1, 1)
                 console.log(currentSetUp)
-                document.getElementById("vorets").innerText = currentSetUp
+                // document.getElementById("vorets").innerText = currentSetUp
                 lineUp = currentSetUp
                 foSho(currentSetUp)
                 console.log(document.getElementById("1").innerText)
@@ -180,7 +196,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         let currentSetUp = [...playalist.lastSetup]
                         currentSetUp.splice(-1, 1)
                         console.log(currentSetUp)
-                        document.getElementById("vorets").innerText = currentSetUp
+                        // document.getElementById("vorets").innerText = currentSetUp
                         lineUp = currentSetUp
                         foSho(currentSetUp)
                         console.log(document.getElementById("1").innerText)
@@ -188,14 +204,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 })
             }
         }
+        gametime.push(`${lineUp[0]} - Serve Start`)
+        playalist.scorebook[playalist.scorebook.length - 1] = gametime
+        window.seam.UpdateStats(playalist)
     })
 
     document.getElementById("rotateSignal").hidden = false
-    playalist.scorebook.push({
-        "gameDay": date,
-        "gameRec": [],
-        "score": [0, 0]
-    })
     await window.seam.UpdateStats(playalist)
     playalist.scorebook[playalist.scorebook.length - 1].gameRec ??= []
     gametime = playalist.scorebook[playalist.scorebook.length - 1].gameRec
