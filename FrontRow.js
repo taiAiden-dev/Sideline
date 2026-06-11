@@ -3,6 +3,7 @@ let finalLineUp
 let midSwitch
 
 let playalist
+let libs = []
 let gametime = []
 let serve = true
 let servetruth = false
@@ -19,9 +20,11 @@ function redo(sword){
         }
     } else {
         serve = false
+        if (!servetruth) {
+            gametime.push(`${lineUp[0].wallet} - Serve End`)
+        }
         servetruth = true
         document.getElementById("turnes").innerText = "Recieve"
-        gametime.push(`${lineUp[0]} - Serve End`)
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
         playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
         window.seam.UpdateStats(playalist)
@@ -30,17 +33,19 @@ function redo(sword){
 
 function foSho(lineUp){
     console.log("b")
+    console.log(libs)
     lineUp.forEach((look, index) => {
         if (index == 6) return
-        console.log(look)
+        console.log(look    )
         const name = document.createElement("p")
-        name.innerText = look
-        let tok = String(look)
+        name.innerText = look.wallet
+        let tok = String(look.wallet)
         let pos = index + 1
+        let insight = playalist.totalPlayers.findIndex(pp => pp.player === tok)
         document.getElementById(pos).innerText = ""
         console.log(document.getElementById(String(pos)))
         document.getElementById(String(pos)).appendChild(name)
-        playalist.playerStats[look] ??= {}
+        // playalist.totalPlayers[look].playerStats ??= {}
         let rowed = document.createElement("div")
         document.getElementById(String(pos)).appendChild(rowed)
         let killB = document.createElement("button")
@@ -53,14 +58,14 @@ function foSho(lineUp){
 
 
         killB.onclick = () => {
-            let server = document.getElementById("1").querySelector("p").innerText
-            playalist.playerStats[tok] ??= {}
-            playalist.playerStats[tok].Kills ??= 0
-            playalist.playerStats[tok].Kills += 1
-            gametime.push(`${look}-K`)
+            let server = playalist.totalPlayers.findIndex(pp => pp.player === document.getElementById("1").querySelector("p").innerText) //document.getElementById("1").querySelector("p").innerText
+            playalist.totalPlayers[insight].playerStats ??= {}
+            playalist.totalPlayers[insight].playerStats.Kills ??= 0
+            playalist.totalPlayers[insight].playerStats.Kills += 1
+            gametime.push(`${look.wallet}-K`)
             document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
-            playalist.playerStats[server].ServicePoints ??= 0
-            playalist.playerStats[server].ServicePoints += 1
+            playalist.totalPlayers[server].playerStats.ServicePoints ??= 0
+            playalist.totalPlayers[server].playerStats.ServicePoints += 1
             playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
             playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
             console.log(playalist.scorebook.at(-1).score)
@@ -70,20 +75,20 @@ function foSho(lineUp){
         }
 
         assistB.onclick = () => {
-            playalist.playerStats[tok] ??= {}
-            playalist.playerStats[tok].Assists ??= 0
-            playalist.playerStats[tok].Assists += 1
-            gametime.push(`${look}-As`)
+            playalist.totalPlayers[insight].playerStats ??= {}
+            playalist.totalPlayers[insight].playerStats.Assists ??= 0
+            playalist.totalPlayers[insight].playerStats.Assists += 1
+            gametime.push(`${look.wallet}-As`)
             document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
             playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
             window.seam.UpdateStats(playalist)
         }
 
         digB.onclick = () => {
-            playalist.playerStats[tok] ??= {}
-            playalist.playerStats[tok].Digs ??= 0
-            playalist.playerStats[tok].Digs += 1
-            gametime.push(`${look}-D`)
+            playalist.totalPlayers[insight].playerStats ??= {}
+            playalist.totalPlayers[insight].playerStats.Digs ??= 0
+            playalist.totalPlayers[insight].playerStats.Digs += 1
+            gametime.push(`${look.wallet}-D`)
             document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
             playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
             window.seam.UpdateStats(playalist)
@@ -94,10 +99,10 @@ function foSho(lineUp){
             blockB.innerText = "Block"
 
             blockB.onclick = () => {
-                playalist.playerStats[tok] ??= {}
-                playalist.playerStats[tok].Blocks ??= 0
-                playalist.playerStats[tok].Blocks += 1
-                gametime.push(`${look}-B`)
+                playalist.totalPlayers[insight].playerStats ??= {}
+                playalist.totalPlayers[insight].playerStats.Blocks ??= 0
+                playalist.totalPlayers[insight].playerStats.Blocks += 1
+                gametime.push(`${look.wallet}-B`)
                 document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
                 playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                 window.seam.UpdateStats(playalist)
@@ -111,14 +116,16 @@ function foSho(lineUp){
 
             aceB.onclick = () => {
                 // COME HERE BB
-                let server = document.getElementById("1").querySelector("p").innerText
-                playalist.playerStats[tok] ??= {}
-                playalist.playerStats[tok].Aces ??= 0
-                playalist.playerStats[tok].Aces += 1
-                gametime.push(`${look}-Ace`)
+                let server = playalist.totalPlayers.findIndex(pp => pp.player === document.getElementById("1").querySelector("p").innerText)
+                console.log(playalist.totalPlayers.findIndex(pp => pp.player === tok))
+                playalist.totalPlayers[insight]
+                playalist.totalPlayers[insight].playerStats ??= {}
+                playalist.totalPlayers[insight].playerStats.Aces ??= 0
+                playalist.totalPlayers[insight].playerStats.Aces += 1
+                gametime.push(`${look.wallet}-Ace`)
                 document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
-                playalist.playerStats[server].ServicePoints ??= 0
-                playalist.playerStats[server].ServicePoints += 1
+                playalist.totalPlayers[server].playerStats.ServicePoints ??= 0
+                playalist.totalPlayers[server].playerStats.ServicePoints += 1
                 playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                 playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
                 document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
@@ -127,10 +134,10 @@ function foSho(lineUp){
             }
 
             servicePointB.onclick = () => {
-                playalist.playerStats[tok] ??= {}
-                playalist.playerStats[tok].ServicePoints ??= 0
-                playalist.playerStats[tok].ServicePoints += 1
-                gametime.push(`${look}-SP`)
+                playalist.totalPlayers[insight].playerStats ??= {}
+                playalist.totalPlayers[insight].playerStats.ServicePoints ??= 0
+                playalist.totalPlayers[insight].playerStats.ServicePoints += 1
+                gametime.push(`${look.wallet}-SP`)
                 document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
                 playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                 window.seam.UpdateStats(playalist)
@@ -148,15 +155,29 @@ function rotate(lineUp){
     let heldPlayer = lineUp.shift()
     lineUp.push(heldPlayer)
     console.log(lineUp[3])
-    let libs = playalist.totalPlayers.Libero
-    if (lineUp.findIndex(p => libs.some(lib => lib.player === p)) == 3){
+    // let libs = playalist.totalPlayers.Libero
+    // if (lineUp.findIndex(p => libs.some(lib => lib.player === p)) == 3){
+    //     let libTemp = lineUp[3]
+    //     lineUp[3] = midSwitch
+    //     midSwitch = lineUp[0]
+    //     lineUp[0] = libTemp
+    // }
+    // playalist.totalPlayers.forEach(kneepad => {
+    //     if (lineUp[3] == kneepad.player && kneepad.position == "Libero") {
+    //         let libTemp = lineUp[3]
+    //         lineUp[3] = midSwitch
+    //         midSwitch = lineUp[0]
+    //         lineUp[0] = libTemp
+    //     }
+    // })
+    if (libs.contains(lineUp[3])){
         let libTemp = lineUp[3]
         lineUp[3] = midSwitch
         midSwitch = lineUp[0]
         lineUp[0] = libTemp
     }
     console.log(lineUp)
-    gametime.push(`${lineUp[0]} - Serve Start`)
+    gametime.push(`${lineUp[0].wallet} - Serve Start`)
     document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
     playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
     window.seam.UpdateStats(playalist)
@@ -166,6 +187,7 @@ function rotate(lineUp){
 window.seam.onHandshake((data) => {
     console.log("h")
     finalLineUp = data
+    libs.push(finalLineUp.totalPlayers.some(l => l.position === "Libero").player)
     if (finalLineUp != undefined){
         console.log(finalLineUp)
         document.getElementById("rotateSignal").hidden = false
@@ -188,6 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await window.seam.fetchRoster().then((data) => {
         playalist = data
         console.log(playalist)
+        libs.push(playalist.totalPlayers.some(l => l.position === "Libero").player)
         playalist.scorebook.push({
             "gameDay": date,
             "gameRec": [],
@@ -203,23 +226,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                 lineUp = currentSetUp
                 foSho(currentSetUp)
                 console.log(document.getElementById("1").innerText)
-            } else {
-                playalist.totalPlayers.MiddleBlocker.forEach(player => {
-                    if (!playalist.lastSetup.includes(player.player)) {
-                        playalist.lastSetup.push(player.player)
-                        midSwitch = playalist.lastSetup[6]
-                        let currentSetUp = [...playalist.lastSetup]
-                        currentSetUp.splice(-1, 1)
-                        console.log(currentSetUp)
-                        // document.getElementById("vorets").innerText = currentSetUp
-                        lineUp = currentSetUp
-                        foSho(currentSetUp)
-                        console.log(document.getElementById("1").innerText)
-                    }
-                })
-            }
+            } // else {
+            //     playalist.totalPlayers.MiddleBlocker.forEach(player => {
+            //         if (!playalist.lastSetup.includes(player.player)) {
+            //             playalist.lastSetup.push(player.player)
+            //             midSwitch = playalist.lastSetup[6]
+            //             let currentSetUp = [...playalist.lastSetup]
+            //             currentSetUp.splice(-1, 1)
+            //             console.log(currentSetUp)
+            //             // document.getElementById("vorets").innerText = currentSetUp
+            //             lineUp = currentSetUp
+            //             foSho(currentSetUp)
+            //             console.log(document.getElementById("1").innerText)
+            //         }
+            //     })
+            // }
         }
-        gametime.push(`${lineUp[0]} - Serve Start`)
+        gametime.push(`${lineUp[0].wallet} - Serve Start`)
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
         playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
         window.seam.UpdateStats(playalist)
@@ -240,11 +263,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     serviceErrB.onclick = () => {
-        let server = document.getElementById("1").querySelector("p").innerText
+        let server = playalist.totalPlayers.findIndex(pp => pp.player === document.getElementById("1").querySelector("p").innerText)
         redo(false)
-        playalist.playerStats[server] ??= {}
-        playalist.playerStats[server].ServeErr ??= 0
-        playalist.playerStats[server].ServeErr += 1
+        playalist.totalPlayers[server].playerStats ??= {}
+        playalist.totalPlayers[server].playerStats.ServeErr ??= 0
+        playalist.totalPlayers[server].playerStats.ServeErr += 1
         gametime.push(`${server}-ServeErr`)
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
         playalist.scorebook[playalist.scorebook.length - 1].score[1] += 1
@@ -265,15 +288,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     document.getElementById("pointGained").onclick = () => {
-        let server = document.getElementById("1").querySelector("p").innerText
+        let server = playalist.totalPlayers.findIndex(pp => pp.player === document.getElementById("1").querySelector("p").innerText)
         gametime.push("PG")
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
         playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
         playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
-        playalist.playerStats[server].ServicePoints ??= 0
-        playalist.playerStats[server].ServicePoints += 1
+        playalist.totalPlayers[server].playerStats.ServicePoints ??= 0
+        playalist.totalPlayers[server].playerStats.ServicePoints += 1
         document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
         redo(true)
         window.seam.UpdateStats(playalist)
+    }
+
+    document.getElementById("dispatch").onclick = () => {
+        window.seam.blow()
     }
 })

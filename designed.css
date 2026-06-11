@@ -41,7 +41,10 @@ body {
     /* flex-direction: column;ks */
     height: 100vh;
 }
-#scared {
+/* #scared {
     display: flex;
     padding-left: 15px;
+} */
+#REFDOSOMETHING{
+    display: grid;
 }

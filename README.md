@@ -27,6 +27,8 @@ What's available:
 What's missing:
 -Substitutions
 -Libero Tracking (Recording, not Substituting)
+-Other rotation formats (currently assumes a 5-1 rotation)
+-Adding new players
 
 As such, this app is currently in development. Apologies for the questionable variable names, but the comments should guide you in cause you get lost.
 Thank you for your interest in my app!

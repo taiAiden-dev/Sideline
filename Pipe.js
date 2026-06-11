@@ -17,5 +17,7 @@ contextBridge.exposeInMainWorld("seam", {
         ipcRenderer.once("try2", (event, data) => {
             callback(data)
         })
-    }
+    },
+    // servingSub: () => ipcRenderer.invoke("try3"),
+    addPlayer: (player) => ipcRenderer.invoke("Tryouts", (event, player))
 })

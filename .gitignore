@@ -1,3 +1,4 @@
 nono/
 node_modules/
 dist/
+/roster.json

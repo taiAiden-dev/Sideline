@@ -100,6 +100,13 @@ ipcMain.handle("StatUpdater", (event, rooster) => {
     fs.writeFileSync(storagePathed, JSON.stringify(rooster, null, 2))
 })
 
+ipcMain.handle("Tryouts", (event, player) => {
+    console.log("ping")
+    let shirt = jerseys()
+    shirt.totalPlayers.push(player)
+    fs.writeFileSync(storagePathed, JSON.stringify(shirt, null, 2))
+})
+
 ipcMain.on("try", (event, data) => {
     try {
         console.log(data)
