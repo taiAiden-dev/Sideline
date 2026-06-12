@@ -303,4 +303,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("dispatch").onclick = () => {
         window.seam.blow()
     }
+
+    document.getElementById("SUBBB").onclick = async () => {
+        window.seam.servingSub()
+        let ided = await window.seam.sworded()
+        console.log(ided)
+        if (ided){
+            foSho(playalist)
+        }
+    }
 })

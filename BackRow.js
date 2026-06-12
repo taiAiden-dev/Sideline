@@ -4,7 +4,7 @@ const fs = require('fs')
 
 let mainWin
 let backupWin
-
+let switched = false
 let temp
 
 const packagedPathed = path.join(app.getPath("userData"), "roster.json")
@@ -27,10 +27,36 @@ if (!fs.existsSync(packagedPathed)) {
     }
 }
 
+function holyUnoptimizedCode(rt){
+    if (rt){
+        switched = true
+    } else return switched
+}
+
 function jerseys(){
     const team = JSON.parse(fs.readFileSync(storagePathed, "utf-8"))
     console.log("hello" , team)
     return team
+}
+
+async function pt() {
+    subWin = new BrowserWindow({
+        width: 600,
+        height: 400,
+        parent: mainWin,
+        modal: true,
+        webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false,
+            preload: path.join(__dirname, "Pipe.js")
+        }
+    })
+    subWin.loadFile("antenna.html")
+    subWin.webContents.openDevTools()
+
+    subWin.on("closed", () => {
+        holyUnoptimizedCode(true)
+    })
 }
 
 async function nono(){
@@ -105,6 +131,15 @@ ipcMain.handle("Tryouts", (event, player) => {
     let shirt = jerseys()
     shirt.totalPlayers.push(player)
     fs.writeFileSync(storagePathed, JSON.stringify(shirt, null, 2))
+})
+
+ipcMain.handle("checked", () => {
+    return holyUnoptimizedCode(false)
+})
+
+ipcMain.handle("try3", async () => {
+    switched = false
+    await pt()
 })
 
 ipcMain.on("try", (event, data) => {

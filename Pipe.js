@@ -18,6 +18,7 @@ contextBridge.exposeInMainWorld("seam", {
             callback(data)
         })
     },
-    // servingSub: () => ipcRenderer.invoke("try3"),
-    addPlayer: (player) => ipcRenderer.invoke("Tryouts", (event, player))
+    servingSub: () => ipcRenderer.invoke("try3"),
+    addPlayer: (player) => ipcRenderer.invoke("Tryouts", (event, player)),
+    sworded: () => ipcRenderer.invoke("checked")
 })
