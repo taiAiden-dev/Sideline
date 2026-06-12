@@ -10,6 +10,7 @@ function subs(data){
         let totalView = data
         document.getElementById("rostered").innerHTML =""
         totalView.totalPlayers.forEach(bp => {
+            if (totalView.lastSetup.some(vb => vb.wallet === bp.player)) return
             let lok = document.createElement("li")
             let toDo = document.createElement("button")
 

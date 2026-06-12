@@ -170,7 +170,7 @@ function rotate(lineUp){
     //         lineUp[0] = libTemp
     //     }
     // })
-    if (libs.contains(lineUp[3])){
+    if (lineUp[3].position === "Libero"){
         let libTemp = lineUp[3]
         lineUp[3] = midSwitch
         midSwitch = lineUp[0]
@@ -187,7 +187,7 @@ function rotate(lineUp){
 window.seam.onHandshake((data) => {
     console.log("h")
     finalLineUp = data
-    libs.push(finalLineUp.lastSetup.find(l => l.position === "Libero").wallet)
+    libs.push(finalLineUp.lastSetup.some(bp => bp.position === "Libero"))
     if (finalLineUp != undefined){
         console.log(finalLineUp)
         document.getElementById("rotateSignal").hidden = false
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await window.seam.fetchRoster().then((data) => {
         playalist = data
         console.log(playalist)
-        libs.push(playalist.lastSetup.find(l => l.position === "Libero").wallet)
+        libs.push(playalist.lastSetup.some(bp => bp.position === "Libero"))
         console.log(libs)
         playalist.scorebook.push({
             "gameDay": date,
@@ -310,6 +310,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(ided)
         if (ided){
             playalist = await window.seam.fetchRoster()
+            libs.push(playalist.lastSetup.some(bp => bp.position === "Libero"))
             console.log(playalist)
             foSho(playalist.lastSetup)
         }
