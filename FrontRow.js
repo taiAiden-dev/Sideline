@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         let ided = await window.seam.servingSub()
         console.log(ided)
         if (ided){
-            playalist = window.seam.fetchRoster()
+            playalist = await window.seam.fetchRoster()
             console.log(playalist)
             foSho(playalist.lastSetup)
         }
