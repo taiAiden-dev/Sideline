@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             } else {
                 see = true
                 document.getElementById("pos").hidden = false
-                document.getElementById("okaysee").innerText = "Player to sub in:"
+                document.getElementById("okaysee").innerText = "Player to sub:"
                 placeheld = document.getElementById("okaysee").innerText
                 subs(temp)
             }

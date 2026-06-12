@@ -156,7 +156,7 @@ function rotate(lineUp){
     lineUp.push(heldPlayer)
     console.log(lineUp[3])
     // let libs = playalist.totalPlayers.Libero
-    // if (lineUp.findIndex(p => libs.some(lib => lib.player === p)) == 3){
+    // if (lineUp.findIndex(p => libs.find(lib => lib.player === p)) == 3){
     //     let libTemp = lineUp[3]
     //     lineUp[3] = midSwitch
     //     midSwitch = lineUp[0]
@@ -187,11 +187,11 @@ function rotate(lineUp){
 window.seam.onHandshake((data) => {
     console.log("h")
     finalLineUp = data
-    libs.push(finalLineUp.totalPlayers.some(l => l.position === "Libero").player)
+    libs.push(finalLineUp.lastSetup.find(l => l.position === "Libero").wallet)
     if (finalLineUp != undefined){
         console.log(finalLineUp)
         document.getElementById("rotateSignal").hidden = false
-        lineUp = finalLineUp
+        lineUp = finalLineUp.lastSetup
         midSwitch = finalLineUp[6]
         lineUp.splice(-1, 1)
         // document.getElementById("vorets").innerText = finalLineUp
@@ -210,7 +210,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     await window.seam.fetchRoster().then((data) => {
         playalist = data
         console.log(playalist)
-        libs.push(playalist.totalPlayers.some(l => l.position === "Libero").player)
+        libs.push(playalist.lastSetup.find(l => l.position === "Libero").wallet)
+        console.log(libs)
         playalist.scorebook.push({
             "gameDay": date,
             "gameRec": [],
@@ -305,11 +306,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     document.getElementById("SUBBB").onclick = async () => {
-        window.seam.servingSub()
-        let ided = await window.seam.sworded()
+        let ided = await window.seam.servingSub()
         console.log(ided)
         if (ided){
-            foSho(playalist)
+            playalist = window.seam.fetchRoster()
+            console.log(playalist)
+            foSho(playalist.lastSetup)
         }
     }
 })

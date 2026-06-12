@@ -1,9 +1,11 @@
 const {app, dialog, BrowserWindow, ipcMain, Notification} = require('electron')
 const path = require('path')
 const fs = require('fs')
+const { resolve } = require('dns')
 
 let mainWin
 let backupWin
+let subWin
 let switched = false
 let temp
 
@@ -53,10 +55,6 @@ async function pt() {
     })
     subWin.loadFile("antenna.html")
     subWin.webContents.openDevTools()
-
-    subWin.on("closed", () => {
-        holyUnoptimizedCode(true)
-    })
 }
 
 async function nono(){
@@ -133,13 +131,20 @@ ipcMain.handle("Tryouts", (event, player) => {
     fs.writeFileSync(storagePathed, JSON.stringify(shirt, null, 2))
 })
 
-ipcMain.handle("checked", () => {
-    return holyUnoptimizedCode(false)
-})
+// ipcMain.handle("checked", () => {
+//     return holyUnoptimizedCode(false)
+// })
 
 ipcMain.handle("try3", async () => {
     switched = false
     await pt()
+
+    return new Promise((resolve) => {
+        subWin.on("closed", () => {
+            switched = true
+            resolve(switched)
+        })
+    })
 })
 
 ipcMain.on("try", (event, data) => {
