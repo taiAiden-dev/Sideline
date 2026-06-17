@@ -115,7 +115,9 @@ function foSho(lookUp){
                     document.getElementById(String(pos)).appendChild(rowed)
                     console.log(lineUp)
                     document.getElementById(String(pos)).querySelector('div').appendChild(switchOut)
+                    playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                     nogo(true)
+                    window.seam.UpdateStats(playalist)
                 }
 
                 switchOut.onclick = () => {
@@ -128,7 +130,9 @@ function foSho(lookUp){
                     document.getElementById(String(pos)).appendChild(nama)
                     document.getElementById(String(pos)).appendChild(rowed)
                     console.log(lineUp)
+                    playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                     nogo(false)
+                    window.seam.UpdateStats(playalist)
                 }
                 rowed.appendChild(libSwitch)
             }
@@ -146,7 +150,9 @@ function foSho(lookUp){
                 document.getElementById(String(pos)).appendChild(nama)
                 document.getElementById(String(pos)).appendChild(rowed)
                 console.log(lineUp)
+                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
                 nogo(false)
+                window.seam.UpdateStats(playalist)
             }
             rowed.appendChild(switchOut)
         }
