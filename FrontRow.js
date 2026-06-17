@@ -1,12 +1,13 @@
-let lineUp
+let lineUp = []
 let finalLineUp
 let midSwitch
 
 let playalist
-let libs = []
+let libs
 let gametime = []
 let serve = true
 let servetruth = false
+
 
 let date = new Date().toLocaleString()
 
@@ -31,16 +32,45 @@ function redo(sword){
     }
 }
 
-function foSho(lineUp){
+// function subRotate(pp){
+//     pp.forEach((bp, index) => {
+//         if (index == 6) return
+//         const myDiv = document.querySelector('#LINE div');
+
+//         const targetParagraph = Array.from(myDiv.querySelectorAll('p')).find(p => p.textContent.trim() === bp.wallet);
+        
+//     })
+// }
+
+function nogo(store){
+    let libBench = document.querySelectorAll("#leSwitch")
+    let benchLib = document.querySelectorAll("#noSwitch")
+    libBench.forEach(bp => {
+        bp.hidden = store
+    })
+    benchLib.forEach(pb => {
+        pb.hidden = !store
+    })
+}
+
+function foSho(lookUp){
+    let tempLineUp = []
     console.log("b")
     console.log(libs)
-    lineUp.forEach((look, index) => {
-        if (index == 6) return
-        console.log(look    )
+    console.log(lookUp)
+    // lineUp.length = 0
+    lookUp.forEach((look, index) => {
+        console.log(lineUp)
+        let pos = index + 1
+        // console.log(!document.getElementById(String(pos)).querySelector('p') && look.position == "Libero")
+        // if (!document.getElementById(String(6)).querySelector('p') && look.position == "Libero") return
+        // if (lookUp.indexOf(pl => pl.position === "Libero") > 4 && lookUp.indexOf(pl => pl.position === "Libero") < 2 && lookUp.indexOf(pl => pl.position === "Libero") != 6)
+        if (index == 6) return 
+        
+        console.log(look)
         const name = document.createElement("p")
         name.innerText = look.wallet
         let tok = String(look.wallet)
-        let pos = index + 1
         let insight = playalist.totalPlayers.findIndex(pp => pp.player === tok)
         document.getElementById(pos).innerText = ""
         console.log(document.getElementById(String(pos)))
@@ -54,7 +84,69 @@ function foSho(lineUp){
         assistB.innerText = "Assist"
         let digB = document.createElement("button")
         digB.innerText = "Dig"
-        console.log(lineUp.indexOf(look) >= 2 && lineUp.indexOf(look) < 5)
+        console.log(lookUp.indexOf(look) >= 2 && lookUp.indexOf(look) < 5)
+
+        if(look.position != "Libero"){
+            if (index == 0 || (index > 3 && index < 6)){
+                let switchOut = document.createElement("button")
+                switchOut.innerText = "Lib Switch"
+
+                switchOut.hidden = true
+                switchOut.id = "noSwitch"
+
+                let wholetThedogsout = playalist.lastSetup.find(lp => lp.position === "Libero")
+                console.log(wholetThedogsout)
+                let libSwitch = document.createElement("button")
+
+                libSwitch.innerText = "Lib Sub"
+                libSwitch.id = "leSwitch"
+
+                libSwitch.onclick = () => {
+                    midSwitch = look
+                    look = wholetThedogsout
+                    lineUp[index] = wholetThedogsout
+                    document.getElementById(pos).innerText = ""
+                    let nama = document.createElement('p')
+                    nama.innerText = wholetThedogsout.wallet
+                    // document.getElementById(pos).querySelector("p").innerText = name
+                    // document.getElementById(String(pos)).appendChild(name)
+                    document.getElementById(String(pos)).appendChild(nama)
+                    document.getElementById(String(pos)).appendChild(rowed)
+                    console.log(lineUp)
+                    document.getElementById(String(pos)).querySelector('div').appendChild(switchOut)
+                    nogo(true)
+                }
+
+                switchOut.onclick = () => {
+                    lineUp[index] = midSwitch
+                    look = midSwitch
+                    document.getElementById(pos).innerText = ""
+                    let nama = document.createElement('p')
+                    nama.innerText = midSwitch.wallet
+                    document.getElementById(String(pos)).appendChild(nama)
+                    document.getElementById(String(pos)).appendChild(rowed)
+                    console.log(lineUp)
+                    nogo(false)
+                }
+                rowed.appendChild(libSwitch)
+            }
+        } else {
+            let switchOut = document.createElement("button")
+            switchOut.innerText = "Lib Switch"
+
+            switchOut.onclick = () => {
+                lineUp[index] = midSwitch
+                look = midSwitch
+                document.getElementById(pos).innerText = ""
+                let nama = document.createElement('p')
+                nama.innerText = midSwitch.wallet
+                document.getElementById(String(pos)).appendChild(nama)
+                document.getElementById(String(pos)).appendChild(rowed)
+                console.log(lineUp)
+                nogo(false)
+            }
+            rowed.appendChild(switchOut)
+        }
 
 
         killB.onclick = () => {
@@ -108,7 +200,7 @@ function foSho(lineUp){
                 window.seam.UpdateStats(playalist)
             }
             rowed.appendChild(blockB)
-        } else if(lineUp.indexOf(look) == 0) {
+        } else if(lookUp.indexOf(look) == 0) {
             const aceB = document.createElement("button")
             aceB.innerText = "Ace"
             const servicePointB = document.createElement("button")
@@ -148,7 +240,9 @@ function foSho(lineUp){
         rowed.appendChild(killB)
         rowed.appendChild(assistB)
         rowed.appendChild(digB)
+        tempLineUp.push(look)
     })
+    lineUp = tempLineUp
 }
 
 function rotate(lineUp){
@@ -187,13 +281,13 @@ function rotate(lineUp){
 window.seam.onHandshake((data) => {
     console.log("h")
     finalLineUp = data
-    libs.push(finalLineUp.lastSetup.some(bp => bp.position === "Libero"))
+    libs = finalLineUp.lastSetup.find(bp => bp.position === "Libero")
     if (finalLineUp != undefined){
         console.log(finalLineUp)
         document.getElementById("rotateSignal").hidden = false
         lineUp = finalLineUp.lastSetup
-        midSwitch = finalLineUp[6]
-        lineUp.splice(-1, 1)
+        // midSwitch = finalLineUp[6]
+        // lineUp.splice(-1, 1)
         // document.getElementById("vorets").innerText = finalLineUp
         console.log(lineUp)
         console.log(midSwitch)
@@ -210,7 +304,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await window.seam.fetchRoster().then((data) => {
         playalist = data
         console.log(playalist)
-        libs.push(playalist.lastSetup.some(bp => bp.position === "Libero"))
+        libs = playalist.lastSetup.find(bp => bp.position === "Libero")
         console.log(libs)
         playalist.scorebook.push({
             "gameDay": date,
@@ -219,13 +313,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
         if (playalist.lastSetup != undefined){
             if(playalist.lastSetup[6]){
-                midSwitch = playalist.lastSetup[6]
-                let currentSetUp = [...playalist.lastSetup]
-                currentSetUp.splice(-1, 1)
-                console.log(currentSetUp)
+                // midSwitch = playalist.lastSetup[6]
+                // let currentSetUp = [playalist.lastSetup]
+                // currentSetUp.splice(-1, 1)
+                // console.log(currentSetUp)
                 // document.getElementById("vorets").innerText = currentSetUp
-                lineUp = currentSetUp
-                foSho(currentSetUp)
+                // lineUp = currentSetUp
+                foSho(playalist.lastSetup)
                 console.log(document.getElementById("1").innerText)
             } // else {
             //     playalist.totalPlayers.MiddleBlocker.forEach(player => {
@@ -305,14 +399,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.seam.blow()
     }
 
+    // document.getElementById("rollingThunder").onclick = () => {
+        
+    // }
+
     document.getElementById("SUBBB").onclick = async () => {
         let ided = await window.seam.servingSub()
         console.log(ided)
         if (ided){
             playalist = await window.seam.fetchRoster()
-            libs.push(playalist.lastSetup.some(bp => bp.position === "Libero"))
-            console.log(playalist)
-            foSho(playalist.lastSetup)
+            libs = finalLineUp.lastSetup.find(bp => bp.position === "Libero")
+            let og = new Set(lineUp.map(obj => obj.wallet))
+            let noOg = new Set(playalist.lastSetup.map(obj => obj.wallet))
+            let subbedPlayer = playalist.lastSetup.find(obj => !og.has(obj.wallet) && obj != midSwitch)
+            console.log(og, noOg)
+            console.log("s", subbedPlayer)
+            console.log(lineUp)
+            // console.log("h", lineUp[lineUp.indexOf(lineUp.find(obj => !noOg.has(obj.wallet)))], lineUp.indexOf(lineUp.find(obj => !noOg.has(obj.wallet))))
+            lineUp[lineUp.indexOf(lineUp.find(obj => !noOg.has(obj.wallet)))] = subbedPlayer
+            console.log(playalist, lineUp)
+            foSho(lineUp)
         }
     }
 })
