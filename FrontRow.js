@@ -103,6 +103,7 @@ function foSho(lookUp){
 
                 libSwitch.onclick = () => {
                     midSwitch = look
+                    gametime.push(`Libero ${wholetThedogsout.wallet} for ${look.position} ${look.wallet}`)
                     look = wholetThedogsout
                     lineUp[index] = wholetThedogsout
                     document.getElementById(pos).innerText = ""
@@ -120,6 +121,7 @@ function foSho(lookUp){
                 switchOut.onclick = () => {
                     lineUp[index] = midSwitch
                     look = midSwitch
+                    gametime.push(`${look.position} ${look.wallet} for Libero ${wholetThedogsout.wallet}`)
                     document.getElementById(pos).innerText = ""
                     let nama = document.createElement('p')
                     nama.innerText = midSwitch.wallet
@@ -136,6 +138,7 @@ function foSho(lookUp){
 
             switchOut.onclick = () => {
                 lineUp[index] = midSwitch
+                gametime.push(`${midSwitch.position} ${midSwitch.wallet} for Libero ${look.wallet}`)
                 look = midSwitch
                 document.getElementById(pos).innerText = ""
                 let nama = document.createElement('p')
