@@ -367,12 +367,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     serviceErrB.onclick = () => {
-        let server = playalist.totalPlayers.findIndex(pp => pp.player === document.getElementById("1").querySelector("p").innerText)
+        let server = playalist.totalPlayers.find(pp => pp.player === document.getElementById("1").querySelector("p").innerText)
+        gametime.push(`${server.player}-ServeErr`)
         redo(false)
         playalist.totalPlayers[server].playerStats ??= {}
         playalist.totalPlayers[server].playerStats.ServeErr ??= 0
         playalist.totalPlayers[server].playerStats.ServeErr += 1
-        gametime.push(`${server}-ServeErr`)
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1]
         playalist.scorebook[playalist.scorebook.length - 1].score[1] += 1
         document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(ided)
         if (ided){
             playalist = await window.seam.fetchRoster()
-            libs = finalLineUp.lastSetup.find(bp => bp.position === "Libero")
+            libs = playalist.lastSetup.find(bp => bp.position === "Libero")
             let og = new Set(lineUp.map(obj => obj.wallet))
             let noOg = new Set(playalist.lastSetup.map(obj => obj.wallet))
             let subbedPlayer = playalist.lastSetup.find(obj => !og.has(obj.wallet) && obj != midSwitch)
