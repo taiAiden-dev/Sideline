@@ -16,13 +16,8 @@ if (!fs.existsSync(packagedPathed)) {
         fs.copyFileSync(storagePathed, packagedPathed);
     } else {
         fs.writeFileSync(packagedPathed, JSON.stringify({
-            totalPlayers: {
-                OutsideHitter: [],
-                OppositeHitter: [],
-                MiddleBlocker: [],
-                Setter: [],
-                Libero: []
-            },
+            teamName: "Team Doe",
+            totalPlayers: [],
             lastSetup: [],
             scorebook: []
         }));
@@ -145,6 +140,23 @@ ipcMain.handle("try3", async () => {
             resolve(switched)
         })
     })
+})
+
+ipcMain.handle("moreNamedTeams", async (event, popo) => {
+    const res = await dialog.showMessageBox({
+        type: 'question',
+        buttons: ["Yes", "No"],
+        defaultId: 1,
+        cancelId: 1,
+        title: "Confirm Team Name",
+        message: "Are you sure you want " + popo + " to be your team name?",
+        detail: "This can be changed later, but a name is required before the app can be used."
+    })
+    if (res.response == 0){
+        let shirt = jerseys()
+        shirt.teamName = popo
+    }
+    return
 })
 
 ipcMain.on("try", (event, data) => {

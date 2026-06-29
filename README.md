@@ -6,7 +6,7 @@ What is Sideline?
 What does Sideline do?
 -Sideline takes your roster of players and creates a starting line-up with the players you've selected. Sideline will also visually represent your current rotation, and track player's stats.
 
-(For reference, Libero is pronounced as (Lib-bear-o) or (Lee-bear-o).)
+(For reference, Libero is pronounced as "Lib-bear-o" or "Lee-bear-o".)
 Languages/Frameworks used:
 -JavaScript
 -HTML
@@ -15,21 +15,26 @@ Languages/Frameworks used:
 -Electron
 
 What's new:
--Score Records
--Serve Tracking (Incomplete)
--Substitutions
--Adding new players
+-Libero Tracking
+-Libero Substitution for positions besides Middle Blockers
+-Team Name (Will be used for game archive)
 
 What's available:
 -Starting line-up creation
 -Libero Substitution
 -Stat Tracking
 -Reusing previous line-up
+-Score Records
+-Serve Tracking (Incomplete)
+-Substitutions
+-Adding new players
 
 What's missing:
--Libero Tracking (Recording, not Substituting)
--Libero Substitution for positions besides Middle Blockers
 -Other rotation formats (currently assumes a 5-1 rotation)
+-Functionality for an opposing team
+
+Plans:
+-Functionality for opposing teams by creating a setting to change between the current layout for personal use and a split layout containing both teams for official scorebook use.
 
 As such, this app is currently in development. Apologies for the questionable variable names, but the comments should guide you in cause you get lost.
 Thank you for your interest in my app!
