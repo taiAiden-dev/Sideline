@@ -4,7 +4,7 @@ let midSwitch
 
 let playalist
 let libs
-let lod
+let lod = 0
 let gametime = []
 let serve = true
 let servetruth = false
@@ -13,6 +13,7 @@ let servetruth = false
 let date = new Date().toLocaleString()
 
 function setCheck(scoreboard){
+    lod = 0
     if (playalist.scorebook.at(-1).lead){
         for (const num of playalist.scorebook.at(-1).lead){
             lod += num
@@ -31,7 +32,7 @@ function setCheck(scoreboard){
             if (scoreboard[0] > scoreboard[1]){
                 playalist.scorebook.at(-1).lead ??= []
                 playalist.scorebook.at(-1).lead[0] += 1
-            } else if (scoreboard[0] > scoreboard[1]) {
+            } else if (scoreboard[0] < scoreboard[1]) {
                 playalist.scorebook.at(-1).lead ??= []
                 playalist.scorebook.at(-1).lead[1] += 1
             }
@@ -115,7 +116,7 @@ function foSho(lookUp){
         digB.innerText = "Dig"
         console.log(lookUp.indexOf(look) >= 2 && lookUp.indexOf(look) < 5)
 
-        if (lineUp.some(pb => pb.position === "Libero")){
+        if (lookUp.some(pb => pb.position === "Libero")){
             if(look.position != "Libero"){
                 if (index == 0 || (index > 3 && index < 6)){
                     let switchOut = document.createElement("button")
@@ -212,13 +213,11 @@ function foSho(lookUp){
                 rowed.appendChild(switchOut)
                 rowed.appendChild(libSwitch)
             }
-        } else {
-            
         }
 
 
         killB.onclick = () => {
-            let server = playalist.totalPlayers.findIndex(pp => pp.player === document.getElementById("1").querySelector("p").innerText) //document.getElementById("1").querySelector("p").innerText
+            let server = playalist.totalPlayers.findIndex(se => se.player == document.getElementById("1").querySelector("p").innerText) //document.getElementById("1").querySelector("p").innerText
             playalist.totalPlayers[insight].playerStats ??= {}
             playalist.totalPlayers[insight].playerStats.Kills ??= 0
             playalist.totalPlayers[insight].playerStats.Kills += 1
@@ -417,7 +416,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             //     })
             // }
         }
-        if (playalist.teamName === "Team Doe"){
+        if (playalist.teamName === "Team Doe" || !playalist.teamName){
             alert("No team name has been set. A team name will be set now.")
             while (playalist.teamName == "Team Doe"){
                 let pp = window.seam.fetchRoster()
@@ -454,7 +453,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     serviceErrB.onclick = () => {
-        let server = playalist.totalPlayers.indexOf(playalist.totalPlayers.find(pp => pp.player === document.getElementById("1").querySelector("p").innerText))
+        let server = playalist.totalPlayers.findIndex(se => se.player == document.getElementById("1").querySelector("p").innerText)
         gametime.at(-1).push(`${server.player}-ServeErr`)
         redo(false)
         console.log(playalist.totalPlayers)
@@ -509,12 +508,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // }
 
     document.getElementById("overwatch").onclick = () => {
-        if (gametime[-1] == "PL"){
+        if (gametime.at(-1) == "PL"){
             playalist.scorebook.at(-1).score[1] -= 1
-        } else if (gametime[-1].contains("K") || gametime[-1].contains("Ace")|| gametime[-1].contains("PG")){
+        } else if (gametime.at(-1).includes("K") || gametime.at(-1).includes("Ace")|| gametime.at(-1).includes("PG")){
             playalist.scorebook.at(-1).score[0] -= 1
         }
-        if (gametime[-1].contains("Serve End")){
+        if (gametime.at(-1).includes("Serve End")){
             gametime.splice(-1, 2)
         } else {
            gametime.splice(-1, 1)

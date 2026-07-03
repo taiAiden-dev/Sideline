@@ -70,3 +70,8 @@ html {
 #REFDOSOMETHING{
     display: grid;
 }
+
+#r2 {
+    /* So the footer at the bottom can fit on the screen when not in fullscreen */
+    padding-bottom: 20px;
+}

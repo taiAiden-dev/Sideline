@@ -32,6 +32,7 @@ What's available:
 What's missing:
 -Other rotation formats (currently assumes a 5-1 rotation)
 -Functionality for an opposing team
+-Proper fullscreen scaling
 
 Plans:
 -Functionality for opposing teams by creating a setting to change between the current layout for personal use and a split layout containing both teams for official scorebook use.
