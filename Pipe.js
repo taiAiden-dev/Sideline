@@ -21,5 +21,8 @@ contextBridge.exposeInMainWorld("seam", {
     servingSub: () => ipcRenderer.invoke("try3"),
     addPlayer: (player) => ipcRenderer.invoke("Tryouts", (event, player)),
     sworded: () => ipcRenderer.invoke("checked"),
-    UpdateTeamName: (popo) => ipcRenderer.invoke("moreNamedTeams", popo)
+    UpdateTeamName: (popo) => ipcRenderer.invoke("moreNamedTeams", popo),
+    changeScreen: (tabbed) => ipcRenderer.invoke("viewChanger", tabbed),
+    setCourtView: () => ipcRenderer.invoke("viewRQ"),
+    getOppoTeam: () => ipcRenderer.invoke("oppoSearchGet")
 })

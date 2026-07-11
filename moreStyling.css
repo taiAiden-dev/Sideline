@@ -1,0 +1,43 @@
+body {
+    background-color: tan;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    padding-top: 12px;
+}
+
+header {
+    border-bottom: 1px solid black;
+}
+
+section {
+    display: flex;
+}
+
+.NET {
+    display: flex;
+    /* flex: 1 */
+    padding: 12px 5px 50px 15px;
+    gap: 25px;
+}
+
+.NET2 {
+    display: flex;
+    padding: 12px 50px 5px 15px;
+    gap: 25px;
+}
+
+#LINE, #LINE2 {
+    /* flex: 1; */
+    display: grid;
+    padding: 12px;
+    overflow-y: auto;
+}

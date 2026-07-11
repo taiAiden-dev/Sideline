@@ -2,3 +2,4 @@ nono/
 node_modules/
 dist/
 /roster.json
+/testRoster.json

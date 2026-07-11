@@ -36,6 +36,10 @@ function jerseys(){
     return team
 }
 
+// async function rodgetter(){
+
+// }
+
 async function pt() {
     subWin = new BrowserWindow({
         width: 600,
@@ -157,6 +161,38 @@ ipcMain.handle("moreNamedTeams", async (event, popo) => {
         shirt.teamName = popo
     }
     return
+})
+
+ipcMain.handle("viewChanger", (event, tabbed) => {
+    switch (tabbed) {
+        case 1:
+            mainWin.loadFile("personView.html")
+            break
+        case 2:
+            mainWin.loadFile("managerView.html")
+            break
+    }
+})
+
+ipcMain.handle("viewRQ", async () => {
+    let choice = await dialog.showMessageBox({
+        type: 'question',
+        buttons: ["Left", "Right"],
+        defaultId: 0,
+        cancelId: 0,
+        title: "Mirror Court View",
+        message: "Which side is the home team on from your perspective?",
+        detail: "This will set the Home team on whichever side you choose. It is recommended to set the Home team to the side they are to you."
+    })
+    return choice.response
+})
+
+ipcMain.handle("oppoSearchGet", async () => {
+    let oppoTeamFile = await dialog.showOpenDialog({
+        properties: ["openFile"],
+        filters: [".JSON"]
+    })
+    return JSON.parse(fs.readFileSync(oppoTeamFile.filePaths[0], "utf-8"))
 })
 
 ipcMain.on("try", (event, data) => {

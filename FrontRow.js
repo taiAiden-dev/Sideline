@@ -14,27 +14,27 @@ let date = new Date().toLocaleString()
 
 function setCheck(scoreboard){
     lod = 0
-    if (playalist.scorebook.at(-1).lead){
-        for (const num of playalist.scorebook.at(-1).lead){
+    if (playalist.scorebookScrim.at(-1).lead){
+        for (const num of playalist.scorebookScrim.at(-1).lead){
             lod += num
         }
     }
     if (lod == 4){
         if (scoreboard[0] >= 25 || scoreboard[1] >= 25){
             if (scoreboard[0] > scoreboard[1]){
-                playalist.scorebook.at(-1).lead ??= []
-                playalist.scorebook.at(-1).lead[0] += 1
+                playalist.scorebookScrim.at(-1).lead ??= []
+                playalist.scorebookScrim.at(-1).lead[0] += 1
             } else if (scoreboard[0] > scoreboard[1]) {
-                playalist.scorebook.at(-1).lead ??= []
-                playalist.scorebook.at(-1).lead[1] += 1
+                playalist.scorebookScrim.at(-1).lead ??= []
+                playalist.scorebookScrim.at(-1).lead[1] += 1
             }
         } else {
             if (scoreboard[0] > scoreboard[1]){
-                playalist.scorebook.at(-1).lead ??= []
-                playalist.scorebook.at(-1).lead[0] += 1
+                playalist.scorebookScrim.at(-1).lead ??= []
+                playalist.scorebookScrim.at(-1).lead[0] += 1
             } else if (scoreboard[0] < scoreboard[1]) {
-                playalist.scorebook.at(-1).lead ??= []
-                playalist.scorebook.at(-1).lead[1] += 1
+                playalist.scorebookScrim.at(-1).lead ??= []
+                playalist.scorebookScrim.at(-1).lead[1] += 1
             }
         }
     }
@@ -57,7 +57,7 @@ function redo(sword){
         document.getElementById("turnes").innerText = "Recieve"
         document.getElementById("lastSeen").innerText = ""
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
         window.seam.UpdateStats(playalist)
     }
 }
@@ -146,7 +146,7 @@ function foSho(lookUp){
                         document.getElementById(String(pos)).appendChild(rowed)
                         console.log(lineUp)
                         document.getElementById(String(pos)).querySelector('div').appendChild(switchOut)
-                        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
                         nogo(true)
                         window.seam.UpdateStats(playalist)
                     }
@@ -161,7 +161,7 @@ function foSho(lookUp){
                         document.getElementById(String(pos)).appendChild(nama)
                         document.getElementById(String(pos)).appendChild(rowed)
                         console.log(lineUp)
-                        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
                         nogo(false)
                         window.seam.UpdateStats(playalist)
                     }
@@ -181,7 +181,7 @@ function foSho(lookUp){
                     document.getElementById(String(pos)).appendChild(nama)
                     document.getElementById(String(pos)).appendChild(rowed)
                     console.log(lineUp)
-                    playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                    playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
                     nogo(false)
                     window.seam.UpdateStats(playalist)
                 }
@@ -206,7 +206,7 @@ function foSho(lookUp){
                     document.getElementById(String(pos)).appendChild(rowed)
                     console.log(lineUp)
                     document.getElementById(String(pos)).querySelector('div').appendChild(switchOut)
-                    playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                    playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
                     nogo(true)
                     window.seam.UpdateStats(playalist)
                 }
@@ -226,13 +226,13 @@ function foSho(lookUp){
             document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
             playalist.totalPlayers[server].playerStats.ServicePoints ??= 0
             playalist.totalPlayers[server].playerStats.ServicePoints += 1
-            playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
-            playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
-            console.log(playalist.scorebook.at(-1).score)
-            document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+            playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
+            playalist.scorebookScrim[playalist.scorebookScrim.length - 1].score[0] += 1
+            console.log(playalist.scorebookScrim.at(-1).score)
+            document.getElementById("scoreboardX2").innerText = `${playalist.scorebookScrim.at(-1).score[0]} - ${playalist.scorebookScrim.at(-1).score[1]} `
             redo(true)
             window.seam.UpdateStats(playalist)
-            setCheck(playalist.scorebook.at(-1).score)
+            setCheck(playalist.scorebookScrim.at(-1).score)
         }
 
         assistB.onclick = () => {
@@ -242,7 +242,7 @@ function foSho(lookUp){
             gametime.at(-1).push(`${look.wallet}-As`)
             document.getElementById("lastSeen").innerText = ""
             document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-            playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+            playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
             window.seam.UpdateStats(playalist)
         }
 
@@ -253,7 +253,7 @@ function foSho(lookUp){
             gametime.at(-1).push(`${look.wallet}-D`)
             document.getElementById("lastSeen").innerText = ""
             document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-            playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+            playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
             window.seam.UpdateStats(playalist)
         }
 
@@ -268,9 +268,9 @@ function foSho(lookUp){
                 gametime.at(-1).push(`${look.wallet}-B`)
                 document.getElementById("lastSeen").innerText = ""
                 document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
                 window.seam.UpdateStats(playalist)
-                setCheck(playalist.scorebook.at(-1).score)
+                setCheck(playalist.scorebookScrim.at(-1).score)
             }
             rowed.appendChild(blockB)
         } else if(lookUp.indexOf(look) == 0) {
@@ -292,12 +292,12 @@ function foSho(lookUp){
                 document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
                 playalist.totalPlayers[server].playerStats.ServicePoints ??= 0
                 playalist.totalPlayers[server].playerStats.ServicePoints += 1
-                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
-                playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
-                document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+                playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
+                playalist.scorebookScrim[playalist.scorebookScrim.length - 1].score[0] += 1
+                document.getElementById("scoreboardX2").innerText = `${playalist.scorebookScrim.at(-1).score[0]} - ${playalist.scorebookScrim.at(-1).score[1]} `
                 redo(true)
                 window.seam.UpdateStats(playalist)
-                setCheck(playalist.scorebook.at(-1).score)
+                setCheck(playalist.scorebookScrim.at(-1).score)
             }
 
             servicePointB.onclick = () => {
@@ -307,9 +307,9 @@ function foSho(lookUp){
                 gametime.at(-1).push(`${look.wallet}-SP`)
                 document.getElementById("lastSeen").innerText = ""
                 document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-                playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+                playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
                 window.seam.UpdateStats(playalist)
-                setCheck(playalist.scorebook.at(-1).score)
+                setCheck(playalist.scorebookScrim.at(-1).score)
             }
             rowed.appendChild(aceB)
             rowed.appendChild(servicePointB)
@@ -351,7 +351,7 @@ function rotate(lineUp){
     gametime.at(-1).push(`${lineUp[0].wallet} - Serve Start`)
     document.getElementById("lastSeen").innerText = ""
     document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-    playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+    playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
     window.seam.UpdateStats(playalist)
     foSho(lineUp)
 }
@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(playalist)
         libs = playalist.lastSetup.find(bp => bp.position === "Libero")
         console.log(libs)
-        playalist.scorebook.push({
+        playalist.scorebookScrim.push({
             "gameDay": date,
             "gameRec": [],
             "score": [0, 0],
@@ -434,14 +434,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         gametime.at(-1).push(`${lineUp[0].wallet} - Serve Start`)
         document.getElementById("lastSeen").innerText = ""
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
         window.seam.UpdateStats(playalist)
     })
 
     document.getElementById("rotateSignal").hidden = false
     await window.seam.UpdateStats(playalist)
-    playalist.scorebook[playalist.scorebook.length - 1].gameRec ??= []
-    gametime = playalist.scorebook[playalist.scorebook.length - 1].gameRec
+    playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec ??= []
+    gametime = playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec
 
 
     let balled = "no"
@@ -464,10 +464,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         playalist.totalPlayers[server].playerStats.ServeErr += 1
         document.getElementById("lastSeen").innerText = ""
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-        playalist.scorebook[playalist.scorebook.length - 1].score[1] += 1
-        document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].score[1] += 1
+        document.getElementById("scoreboardX2").innerText = `${playalist.scorebookScrim.at(-1).score[0]} - ${playalist.scorebookScrim.at(-1).score[1]} `
         window.seam.UpdateStats(playalist)
-        setCheck(playalist.scorebook.at(-1).score)
+        setCheck(playalist.scorebookScrim.at(-1).score)
     }
 
     document.getElementById("rotateSignal").onclick = () => rotate(lineUp)
@@ -477,11 +477,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("lastSeen").innerText = ""
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
         redo(false)
-        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
-        playalist.scorebook[playalist.scorebook.length - 1].score[1] += 1
-        document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].score[1] += 1
+        document.getElementById("scoreboardX2").innerText = `${playalist.scorebookScrim.at(-1).score[0]} - ${playalist.scorebookScrim.at(-1).score[1]} `
         window.seam.UpdateStats(playalist)
-        setCheck(playalist.scorebook.at(-1).score)
+        setCheck(playalist.scorebookScrim.at(-1).score)
     }
 
     document.getElementById("pointGained").onclick = () => {
@@ -489,14 +489,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         gametime.at(-1).push("PG")
         document.getElementById("lastSeen").innerText = ""
         document.getElementById("lastSeen").innerText = gametime[gametime.length - 1].at(-1)
-        playalist.scorebook[playalist.scorebook.length - 1].gameRec = gametime
-        playalist.scorebook[playalist.scorebook.length - 1].score[0] += 1
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].gameRec = gametime
+        playalist.scorebookScrim[playalist.scorebookScrim.length - 1].score[0] += 1
         playalist.totalPlayers[server].playerStats.ServicePoints ??= 0
         playalist.totalPlayers[server].playerStats.ServicePoints += 1
-        document.getElementById("scoreboardX2").innerText = `${playalist.scorebook.at(-1).score[0]} - ${playalist.scorebook.at(-1).score[1]} `
+        document.getElementById("scoreboardX2").innerText = `${playalist.scorebookScrim.at(-1).score[0]} - ${playalist.scorebookScrim.at(-1).score[1]} `
         redo(true)
         window.seam.UpdateStats(playalist)
-        setCheck(playalist.scorebook.at(-1).score)
+        setCheck(playalist.scorebookScrim.at(-1).score)
     }
 
     document.getElementById("dispatch").onclick = () => {
@@ -509,15 +509,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById("overwatch").onclick = () => {
         if (gametime.at(-1) == "PL"){
-            playalist.scorebook.at(-1).score[1] -= 1
+            playalist.scorebookScrim.at(-1).score[1] -= 1
         } else if (gametime.at(-1).includes("K") || gametime.at(-1).includes("Ace")|| gametime.at(-1).includes("PG")){
-            playalist.scorebook.at(-1).score[0] -= 1
+            playalist.scorebookScrim.at(-1).score[0] -= 1
         }
         if (gametime.at(-1).includes("Serve End")){
             gametime.splice(-1, 2)
         } else {
            gametime.splice(-1, 1)
         }
+    }
+
+    document.getElementById("changer").onclick = () => {
+        window.seam.changeScreen(2)
     }
 
     document.getElementById("SUBBB").onclick = async () => {
