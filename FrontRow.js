@@ -34,7 +34,7 @@ function setCheck(scoreboard){
             if (scoreboard[0] > scoreboard[1]){
                 playalist.scorebookScrim.at(-1).lead ??= []
                 playalist.scorebookScrim.at(-1).lead[0] += 1
-            } else if (scoreboard[0] > scoreboard[1]) {
+            } else if (scoreboard[0] < scoreboard[1]) {
                 playalist.scorebookScrim.at(-1).lead ??= []
                 playalist.scorebookScrim.at(-1).lead[1] += 1
             }
@@ -123,6 +123,14 @@ function foSho(lookUp){
         // if (lookUp.indexOf(pl => pl.position === "Libero") > 4 && lookUp.indexOf(pl => pl.position === "Libero") < 2 && lookUp.indexOf(pl => pl.position === "Libero") != 6)
         if (index == 6) return 
         
+        console.log(
+            "cell", pos,
+            "| position:", look.position,
+            "| libs.length:", libs.length,
+            "| not libero:", look.position != "Libero",
+            "| back-row slot:", index == 0 || (index > 3 && index < 6)
+            )
+
         console.log(look)
         const name = document.createElement("p")
         name.innerText = look.wallet
@@ -142,7 +150,7 @@ function foSho(lookUp){
         digB.innerText = "Dig"
         console.log(lookUp.indexOf(look) >= 2 && lookUp.indexOf(look) < 5)
         
-        if (libs.length >= 1 || lookUp.some(pb => pb.position === "Libero")){
+        if (/*libs.length >= 1 ||*/ liberooo/*lookUp.some(pb => pb.position === "Libero")*/){
             if(look.position != "Libero"){
                 if (index == 0 || (index > 3 && index < 6)){
                     let switchOut = document.createElement("button")
@@ -430,7 +438,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (playalist.teamName === "Team Doe" || !playalist.teamName){
             alert("No team name has been set. A team name will be set now.")
             while (playalist.teamName == "Team Doe"){
-                let pp = window.seam.fetchRoster()
+                let pp = await window.seam.fetchRoster()
                 if (pp.teamName !== "Team Doe") break
                 let namedTeam = prompt("What is your team name?")
                 if (namedTeam !== null){
