@@ -31,8 +31,11 @@ What's available:
 
 What's missing:
 -Other rotation formats (currently assumes a 5-1 rotation)
--Functionality for an opposing team
+-Functionality for an opposing team (WIP)
 -Proper fullscreen scaling
+
+Current Bugs:
+-Bug with Lib Sub Logic
 
 Plans:
 -Functionality for opposing teams by creating a setting to change between the current layout for personal use and a split layout containing both teams for official scorebook use.

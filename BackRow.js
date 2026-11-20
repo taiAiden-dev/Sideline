@@ -178,11 +178,11 @@ ipcMain.handle("viewRQ", async () => {
     let choice = await dialog.showMessageBox({
         type: 'question',
         buttons: ["Left", "Right"],
-        defaultId: 0,
-        cancelId: 0,
+        defaultId: 1,
+        cancelId: 1,
         title: "Mirror Court View",
         message: "Which side is the home team on from your perspective?",
-        detail: "This will set the Home team on whichever side you choose. It is recommended to set the Home team to the side they are to you."
+        detail: "This will set the Home team on whichever side you choose. It is recommended to set the Home team to the side they are to you. This will default to the right if cancelled."
     })
     return choice.response
 })
